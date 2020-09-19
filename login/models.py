@@ -11,3 +11,9 @@ class Signup(models.Model):
     gender = models.CharField(max_length=50,default="")
     address = models.CharField(max_length=500,default="")
 
+class adminPortal(models.Model):
+    admin_id = models.AutoField(primary_key = True)
+    email = models.CharField(max_length=50,default="")
+    password = models.CharField(max_length=50,default="")
+    name = models.CharField(max_length=50,default="")
+    admin_image = models.ImageField(upload_to='admin/images',default='')

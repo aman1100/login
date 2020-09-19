@@ -1,0 +1,23 @@
+{% extends 'internship/basic.html' %}
+{% block title%} Admin Portal {% endblock%}
+{% block body%}
+
+<div class="container mt-3">
+
+    <h1>Admin Portal</h1>
+    <form method="post" name="admin">{% csrf_token %}
+        <div class="form-group">
+            <label for="email"><h3>admin-email</h3></label>
+            <input type="email" required class="form-control" name="email" id="email" placeholder="abc@mail.com">
+        </div>
+        <div class="form-group">
+            <label for="password"><h3>Password</h3></label>
+            <input type="password" required class="form-control" name="password" id="password" placeholder="Enter your password">
+        </div>
+        <button  type="submit" id="login_button"  class="btn btn-success" >Login</button>
+
+    </form>
+</div>
+
+
+{% endblock%}

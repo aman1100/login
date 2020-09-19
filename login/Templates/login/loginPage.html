@@ -1,20 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <title>login</title>
-</head>
-<body>
+{% extends 'internship/basic.html' %}
+{% block title%} Login Page {% endblock%}
+{% block body%}
 <div class="container mt-4">
 
-    <a href="/login/">Signup</a>
-    <h1>Login Yourself.</h1>
+
+    <h1  >Login Yourself.</h1>
     <form action="/login/loginPage/" method="post" name="login" >{% csrf_token %}
 
         <div class="form-group">
@@ -22,26 +12,17 @@
             <input type="email" required class="form-control" name="email" id="email" placeholder="abc@mail.com">
         </div>
         <div class="form-group">
-            <label for="pasword"><h3>Password</h3></label>
+            <label for="password"><h3>Password</h3></label>
             <input type="password" required class="form-control" name="password" id="password" placeholder="Enter your password">
         </div>
+        <button  type="submit" id="login_button"  class="btn btn-success" >Login</button>
 
         <a href="/login/changePassword/"> <button type="button" class="btn btn-success" >change password</button></a>
-
-
-        <button  type="submit" id="login_button"  class="btn btn-success" >Login</button>
     </form>
 </div>
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-</body>
+{% endblock%}
+{% block js%}
 <!--<script>
     $('.submitBtn').on('click', function(e){
     e.preventDefault();
@@ -51,11 +32,8 @@
     console.log(password);
 
 
+
 });
 
 </script>-->
-
-
-
-
-</html>
+{% endblock%}

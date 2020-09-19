@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from . models import Signup
+from . models import Signup,adminPortal
 
 # Create your views here.
 def signup(request):
@@ -75,4 +75,33 @@ def changePassword(request):
 
     return render(request,'login/changePassword.html')
 
+def selectadmin(request):
+    admins = adminPortal.objects.all()
+    return render(request, 'login/adminProfile.html', {'admins': admins})
 
+def admin(request,id):
+    if request.method == "POST":
+        email = request.POST.get('email', 'false')
+        password = request.POST.get('password', 'false')
+        admin=adminPortal.objects.filter(admin_id=id)[0]
+        if(admin.email == email and admin.password == password):
+            users=Signup.objects.all()
+            return render(request,'login/adminAccount.html',{'admin':admin ,'users':users})
+        else:
+            return HttpResponse('invalid username password')
+
+    return render(request,'login/adminPortal.html')
+
+def adminActions(request):
+    if request.method == "POST":
+        del_user_id= request.POST.get('delete_button_name','false')
+        del_user_id =del_user_id[20:-1]
+        print(del_user_id)
+        users =Signup.objects.values('user_id')
+        print(users)
+        for user in users:
+            if(del_user_id == str(user['user_id'])):
+                user=Signup.objects.filter(user_id=del_user_id)
+                user.delete()
+
+        return HttpResponse('user deleted succesfully')

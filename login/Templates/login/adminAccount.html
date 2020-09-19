@@ -1,0 +1,68 @@
+{% extends 'internship/basic.html' %}
+{% block title%}admin Account {% endblock%}
+
+{% block css%}
+
+{% endblock%}
+{% block body%}
+<div class="container">
+    <h3 style="text-align: center">Admin Info</h3>
+    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark mt-2">
+        <div class="col">
+            <div class="row">
+                <img  src="/media/{{admin.admin_image}}" class="bd-placeholder-img col" width="100" height="100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"/><title>Placeholder</title></img>
+                <h4 class="font-italic col">Name: {{admin.name}}</h4>
+                <h4 class="col"> Admin Id: {{admin.admin_id}}</h4>
+                <h4 class=" col">Email: {{admin.email}}</h4>
+
+            </div>
+        </div>
+    </div>
+    <h4>users with us</h4>
+    {% for user in users%}
+    <li class="list-group-item  justify-content-between align-items-center">
+        <h5><b>Name:</b>  {{user.name}}  <b>Email:</b>   {{user.email}}</h5>
+
+        <button type="button" id="confirmation{{user.user_id}}" class="btn btn-danger">Delete User</button>
+        <form action="/login/adminAccount/" method="post" name="deleteUser">{% csrf_token %}
+         <input type="hidden" name="delete_button_name" id="delete_button_name">
+        <button type="submit" name="delete{{user.user_id}}" id="delete{{user.user_id}}" class="btn btn-danger" style="display: none"> Are You Sure</button>
+        </form><br>
+        <button type="button"  id="cancel{{user.user_id}}" class="btn btn-success" style="display: none"> cancel</button>
+
+    </li>
+    {% endfor%}
+    <a href="/login/"><button type="button" class="btn btn-success mt-2">Add user</button></a>
+</div>
+{% endblock%}
+{% block js%}
+
+<script>
+    $(document).ready(function(){
+        console.log('ready');
+        $('button').click(function(){
+            $('#confirmation'+this.id.slice(12)).hide();
+            $("[name='delete_button_name']").val(JSON.stringify('#confirmation'+this.id));
+
+            $('#delete'+this.id.slice(12)).show();
+            $('#delete'+this.id.slice(12)).click(function (){
+                 alert('user deleted succesfully');
+                 window.location.reload();
+             });
+
+            $('#cancel'+this.id.slice(12)).show();
+
+            $('#cancel'+this.id.slice(12)).click(function (){
+                console.log(this);
+                alert('user did not deleted');
+                window.location.reload();
+            });
+
+
+
+        });
+
+    });
+</script>
+
+{% endblock%}
