@@ -18,12 +18,6 @@ from django.urls import path,include
 from .import views
 
 urlpatterns = [
-    path('',views.signup,name='signup'),
-    path('loginPage/',views.login,name='login'),
-    path('changePassword/',views.changePassword,name='changePassword'),
-    path('selectadmin/',views.selectadmin,name='selectAdmin'),
-    path('adminPortal/<int:id>',views.admin,name='adminPortal'),
-    path('userProfile/<int:id>',views.userProfile,name='userProfile'),
-    path('adminAccount/',views.adminActions,name='adminActions')
+    path('',views.home,name='home')
 
 ]

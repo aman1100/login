@@ -53,6 +53,12 @@
 
 {% block js%}
 <script>
+
+
+    {% if msg|length != 0 %}
+    alert('{{msg}}')
+    {%endif%}
+
     function validateForm() {
         var name = document.forms["signup"]["name"].value;
         if (name.length <2 ) {

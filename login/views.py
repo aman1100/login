@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from . models import Signup,adminPortal
 
@@ -13,11 +13,13 @@ def signup(request):
         users = Signup.objects.values('phone', 'email')
         for user in users:
             if(phone == user['phone']):
-                return HttpResponse('phone number existed try a different number')
+                params = {'msg': 'phone number already existed try a different number'}
+                return render(request, 'login/signupPage.html', params)
                 break
         for user in users:
             if(email == user['email']):
-                return HttpResponse('email existed try a different email')
+                params = {'msg': 'email already existed try a different email'}
+                return render(request, 'login/signupPage.html', params)
                 break
         password = request.POST.get('password','false')
         designation = request.POST.get('designation','false')
@@ -25,11 +27,16 @@ def signup(request):
         address = request.POST.get('address','false')
         user = Signup(password=password,name = name,phone = phone , email=email,designation = designation,gender=gender,address=address)
         user.save()
-        return HttpResponse('Signup Successfull')
-
-
-
+        user= Signup.objects.filter(phone=phone)[0]
+        url = '/login/userProfile/'
+        id = user.user_id
+        page =(f'{url}{id}')
+        return redirect(page)
     return render(request,'login/signupPage.html')
+
+def userProfile(request,id):
+    user = Signup.objects.filter(user_id=id)[0]
+    return render(request,'login/userProfile.html',{'user':user})
 
 def login(request):
     login_variable =False
@@ -41,9 +48,12 @@ def login(request):
         users = Signup.objects.values('email','password')
         for user in users:
             if(user['email'] == email and user['password'] == password):
+                user= Signup.objects.filter(email=email)[0]
+                print(user)
+                params ={'user':user}
                 login_variable=True
         if (login_variable == True):
-            return HttpResponse('login successful')
+            return redirect('/home/',params)
         else:
             return HttpResponse('Username Password Incorrect')
     return render(request,'login/loginPage.html')

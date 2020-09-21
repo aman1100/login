@@ -1,0 +1,55 @@
+{% extends 'internship/basic.html' %}
+{% block title%} {{user.name }} profile {% endblock%}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% block css%}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+
+{% endblock%}
+
+
+{% block body%}
+<body style="background-color: #a6a6a6;">
+    <div  style="text-align:center" class="alert alert-success" role="alert">
+        <h2>Your Profile!</h2>
+</div>
+<div class="card mt-3">
+<!--  <img src="/w3images/team2.jpg" alt="John" style="width:100%">-->
+
+  <h1><b>Name: </b>{{user.name}}</h1>
+  <p class="title">Your Id: {{user.user_id}}</p>
+  <p><b>Phone number: </b>{{user.phone}}</p>
+  <p><b>Email-Id: </b>{{user.email}}</p>
+  <p><b>Designation: </b>{{user.designation}}</p>
+  <p><b>Gender: </b>{{user.gender}}</p>
+  <p><b>Address: </b>{{user.address}}</p>
+   <a href="/login/changePassword/"> <button type="button" class="btn btn-success mb-4" >change password</button></a>
+   <a href="/home/"> <button type="button" class="btn btn-success mb-4" >Visit Website</button></a>
+</div>
+</body>
+{% endblock%}
+{% block js%}
+<script>
+    location.href('userProfile/{{user.user_id}}')
+</script>
+{% endblock%}
