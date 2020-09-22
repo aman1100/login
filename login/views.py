@@ -49,11 +49,13 @@ def login(request):
         for user in users:
             if(user['email'] == email and user['password'] == password):
                 user= Signup.objects.filter(email=email)[0]
-                print(user)
-                params ={'user':user}
-                login_variable=True
+                login_variable = True
+                print(user.user_id)
+                url = '/home/home/'
+                id = user.user_id
+                page = (f'{url}{id}')
         if (login_variable == True):
-            return redirect('/home/',params)
+            return redirect(page)
         else:
             return HttpResponse('Username Password Incorrect')
     return render(request,'login/loginPage.html')
@@ -76,8 +78,9 @@ def changePassword(request):
                     user['password']= newpassword
                     print(user['password'])
                     user = Signup.objects.filter(email=email).update(password=newpassword)
-                    return HttpResponse("password Changed")
-            print(user)
+                    params = {'msg': 'Password change successfully'}
+                    return render(request,'login/changePassword.html',params)
+                    break
         if(email_variable != True):
             return HttpResponse('email id not exist')
         if(password_variable != True):
